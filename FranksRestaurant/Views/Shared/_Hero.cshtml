@@ -1,0 +1,15 @@
+﻿@{
+    string pageTitle = ViewData["Title"]?.ToString() ?? "Welcome to Frank's Restaurant";
+    string pageDescription = ViewData["Description"]?.ToString() ?? "Serving delicious comfort food for over 50 years. Join us for an unforgettable dining experience.";
+}
+
+<div class="hero bg-dark text-white text-center p-5" style="background-image: url('/images/franks-banner.jpg'); background-size: cover;">
+    <div class="hero-content">
+        <h1 class="display-3">@pageTitle</h1>
+        <p class="lead">@pageDescription</p>
+        @if(ViewData["ShowMenuButton"]?.ToString() == "true")
+        {
+            <a class="btn btn-primary btn-lg" asp-controller="Menu" asp-action="Index">Explore Our Menu</a>
+        }
+    </div>
+</div>
