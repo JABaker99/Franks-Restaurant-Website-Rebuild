@@ -2,12 +2,15 @@
     ViewData["Title"] = "Menu - Frank's Restaurant";
     ViewData["Description"] = "Explore our delicious menu items, including signature pizzas, crispy fried dishes, and more!";
     ViewData["ShowMenuButton"] = "false";
+
+    var currentSortField = (ViewData["SortField"] as string) ?? "Name";
+    var currentSortDir = (ViewData["SortDir"] as string) ?? "asc";
+    MenuType? currentSortGroup = ViewData["SortGroup"] != null ? (MenuType?)ViewData["SortGroup"] : null;
 }
 
 @Html.Partial("_Hero")
 
 @model List<IGrouping<MenuType, MenuItem>>
-
 
 @foreach (var group in Model)
 {
@@ -16,9 +19,23 @@
     <table class="table">
         <thead>
         <tr>
-            <th>Name</th>
+            <th>
+                @{
+                    var nameToggle = (currentSortField == "Name" && currentSortGroup == group.Key)
+                        ? (currentSortDir == "asc" ? "desc" : "asc")
+                        : "asc";
+                }
+                <a href="@Url.Action("Index", "Menu", new { sortField = "Name", sortDir = nameToggle, sortGroup = group.Key })">Name</a>
+            </th>
             <th>Description</th>
-            <th>Cost</th>
+            <th>
+                @{
+                    var costToggle = (currentSortField == "Cost" && currentSortGroup == group.Key)
+                        ? (currentSortDir == "asc" ? "desc" : "asc")
+                        : "asc";
+                }
+                <a href="@Url.Action("Index", "Menu", new { sortField = "Cost", sortDir = costToggle, sortGroup = group.Key })">Cost</a>
+            </th>
             @if (ViewBag.IsAdmin == true)
             {
                 <th>Actions</th>
@@ -27,7 +44,29 @@
         </tr>
         </thead>
         <tbody>
-        @foreach (var item in group)
+        @{
+            IEnumerable<MenuItem> orderedItems;
+            if (currentSortGroup.HasValue && currentSortGroup.Value == group.Key)
+            {
+                if (currentSortField == "Cost")
+                {
+                    orderedItems = currentSortDir == "asc"
+                        ? group.OrderBy(x => x.Cost)
+                        : group.OrderByDescending(x => x.Cost);
+                }
+                else
+                {
+                    orderedItems = currentSortDir == "asc"
+                        ? group.OrderBy(x => x.Name)
+                        : group.OrderByDescending(x => x.Name);
+                }
+            }
+            else
+            {
+                orderedItems = group.OrderBy(x => x.Name);
+            }
+        }
+        @foreach (var item in orderedItems)
         {
             <tr>
                 <td>@item.Name</td>
@@ -52,7 +91,6 @@
         </tbody>
     </table>
 }
-
 @if (ViewBag.IsAdmin == true)
 {
     <div class="d-flex justify-content-center mt-4">

@@ -1,6 +1,7 @@
 ﻿using FranksRestaurant.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using System.Collections.Generic;
 
 /// <summary>
 /// The MenuController is responsible for managing the restaurant's menu, including displaying,
@@ -27,12 +28,16 @@ public class MenuController : Controller
     /// </summary>
     /// <returns>The Index view with grouped menu items.</returns>
     [HttpGet]
-    [HttpGet]
-    public IActionResult Index()
+    public IActionResult Index(string sortField = "Name", string sortDir = "asc", MenuType? sortGroup = null)
     {
         ViewBag.IsAdmin = HttpContext.Session.GetString("AdminLoggedIn") == "True";
 
+        ViewData["SortField"] = sortField;
+        ViewData["SortDir"] = sortDir;
+        ViewData["SortGroup"] = sortGroup;
+
         var groupedMenuItems = _context.MenuItems
+            .AsEnumerable()
             .GroupBy(m => m.MenuType)
             .ToList();
 
