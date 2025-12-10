@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "About Us - Frank's Restaurant";
+    ViewData["Description"] = "Frank's Restaurant has been serving the community for over 50 years. Learn more about our history and values.";
+}
+
+@Html.Partial("_Hero")
+
+<div class="container mt-5">
+    <h1 class="display-4 text-center">About Frank's Restaurant</h1>
+    <p class="lead text-center">Frank's Restaurant is a family-owned establishment that has been serving the community for over 50 years. We pride ourselves on serving delicious comfort food in a welcoming atmosphere.</p>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <img src="~/images/Frank-Castellana-Family.jpg" alt="Family Picture" class="img-fluid rounded" />
+        </div>
+
+        <div class="col-md-6">
+            <h3 class="mt-5">Our History</h3>
+            <p>Frank's Restaurant has been passed down through multiple generations and remains one of the few long-standing dining options in the area. We continue to support our local community through jobs and by offering a place where everyone can enjoy great food.</p>
+
+            <h3>Our Values</h3>
+            <ul>
+                <li>Quality: We believe in serving only the best quality ingredients in every meal.</li>
+                <li>Community: We are deeply connected to the local community and strive to support it in every way we can.</li>
+                <li>Tradition: We respect the traditions of family and good food that have been part of Frank's since the beginning.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="mt-5">
+        <h3 class="text-center">Find Us Here</h3>
+        <p class="text-center">We're located in the heart of Covington, GA. Below is a map showing the way!</p>
+
+        <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3384.704271148703!2d-83.8666496845731!3d33.59479408084144!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f5b883c3c7369b%3A0x1ad6de0ab3cd2797!2s11818%20Highway%20212%2C%20Covington%2C%20GA%2030014!5e0!3m2!1sen!2sus!4v1617107735087!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </div>
+</div>
