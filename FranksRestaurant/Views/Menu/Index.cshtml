@@ -1,0 +1,70 @@
+﻿@{
+    ViewData["Title"] = "Menu - Frank's Restaurant";
+    ViewData["Description"] = "Explore our delicious menu items, including signature pizzas, crispy fried dishes, and more!";
+    ViewData["ShowMenuButton"] = "false";
+}
+
+@Html.Partial("_Hero")
+
+@model List<IGrouping<MenuType, MenuItem>>
+
+
+@foreach (var group in Model)
+{
+    <h2>@group.Key</h2>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Cost</th>
+            @if (ViewBag.IsAdmin == true)
+            {
+                <th>Actions</th>
+                <th></th>
+            }
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in group)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+                <td>@item.Cost</td>
+                <td>
+                    @if (ViewBag.IsAdmin == true)
+                    {
+                        <a href="@Url.Action("AddAndEdit", "Menu", new { id = item.Id })" class="btn btn-warning">Edit</a>
+                    }
+                </td>
+                <td>
+                    @if (ViewBag.IsAdmin == true)
+                    {
+                        <form action="@Url.Action("Delete", "Menu", new { id = item.Id })" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@if (ViewBag.IsAdmin == true)
+{
+    <div class="d-flex justify-content-center mt-4">
+        <a href="@Url.Action("AddAndEdit", "Menu")" class="btn btn-success mx-2">Add New Menu Item</a>
+        <form action="@Url.Action("Logout", "Admin")" method="post" style="display:inline;">
+            <button type="submit" class="btn btn-danger mx-2">Logout</button>
+        </form>
+    </div>
+}
+else
+{
+    <div class="d-flex justify-content-center mt-4">
+        <a href="@Url.Action("Login", "Admin")" class="btn btn-outline-dark mx-2">Admin Login</a>
+    </div>
+}
