@@ -317,3 +317,50 @@ body, html {
     min-height: 100%;
     padding-bottom: 50px;
 }
+
+.navbar-nav .nav-link {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.navbar-brand img {
+    max-height: 70px;
+}
+
+@media (max-width: 768px) {
+    .navbar-nav .nav-link {
+        font-size: 1.1rem;
+    }
+
+    .navbar-brand img {
+        max-height: 50px;
+    }
+}
+
+.navbar {
+    font-size: 1.2rem;
+    background-color: #ffffff;
+    padding: 1.5rem 1rem;
+}
+
+.navbar-toggler {
+    border-color: #258cfb;
+}
+
+.navbar-toggler-icon {
+    background-color: #258cfb;
+    width: 30px;
+    height: 3px;
+}
+
+.navbar-collapse .navbar-nav .nav-item {
+    padding-left: 20px;
+}
+
+.navbar-collapse {
+    justify-content: flex-end;
+}
+
+.navbar-nav .nav-link {
+    padding: 10px 15px;
+}
